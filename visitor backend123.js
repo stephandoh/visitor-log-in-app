@@ -4,6 +4,13 @@
 
 var express = require('express'); // the way a package is used in node is by using the require() function with the package name assuming the package is declared in the package.json file. the function usually retuns a function.
 
-var cfenv = require('cfenv') // cfenv provides access to my cloud foundry environment.
+var cfenv = require('cfenv'); // cfenv provides access to my cloud foundry environment.
 
-var app = express() // create a new express server
+var app = express();// create a new express server
+
+app.use(express.static(__dirname + '/public')) // this is how we tell express to serve static files from a directory.
+
+app.get("/hello", /* @callback */ function (req, res) {
+    res.send("hello, world"); 
+}); // the app.get call specifies how to handle requests for a particular path. the call has two parameters, one is a variable that is used to pass info between functions, and the second is an anonymous function to call when the path is requested. the @func has 2 parameters: a request ob that inclused HTTP request and a response ob used to send back a res
+
