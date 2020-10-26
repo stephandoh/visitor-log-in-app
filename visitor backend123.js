@@ -53,6 +53,9 @@ var visitors = {
     "Bill Hamm": {
         arrived: new Date(Date.now() - 1000*3600*2)
     },
+    /*Date.now() is the number of milliseconds between now and fixed
+    point in time (midnight of 01/01/1970). so Bill's arrival time is
+    two hours before the code is executed when the application starts */
     "Deborah Lapidot": {
         arrived: new Date(Date.now() - 1000*3600),
         history: [
@@ -74,4 +77,55 @@ var visitors = {
             }
         ]
     }
+};
+
+/*
+to get the list of visitor names, 
+all we need is to get the keys of the visitors objest. 
+the function to do is object.keys, so something like this
+var Function_Nmae = (paramq, param2, ... paramn) =>
+                    {<function>}
+*/
+
+/*
+use filter() function to return an array
+of elements that pass a particular test 
+we are trying to filter out all the visitor's names that have
+arrives in the office. in coding, the value of the arrived key
+is not equal to undefined. When a function literal is a single
+expression, there is no need to enclose it 
+in curly brackets ({}) and have a return statement. 
+You can just enter the expression.\
+*/
+
+var visitorsName = () => {
+    return Object.keys(visitors);
+}
+
+var currentVisitorNames = () => {
+    return currentVisitorNames().filter((name) => visitors[name].arrived !== undefined);
+}
+
+var nonCurrentVisitorNames = () => {
+    return visitorsNames().filter((name) => visitor[name].arrived === undefined);
+};
+
+/*
+next we create a list of currently present visitors. it uses the map() 
+function to retrieve information for each user in the list of current
+visitors. we aew going to use map(). it receives filter() as a parameter.
+however, instead of decifing whether the value would be in the output or not, 
+the function in map is used tp transform the values:
+it creates new arrays, populate it with the mapping function results.
+every time the mapping function is executed, it receives the data of the 
+currently present visitor and puts it in an object and afterwards these objects are
+put in a list in the same order as the orignal values.
+*/
+
+var currentVisitorList = () => {
+    return currentVisitorNames().map((name) => {
+        var retVal = {};
+        retVal[name] = visitors[name];
+        return retVal;
+    }); 
 };
