@@ -98,7 +98,7 @@ in curly brackets ({}) and have a return statement.
 You can just enter the expression.\
 */
 
-var visitorsName = () => {
+var visitorNames = () => {
     return Object.keys(visitors);
 }
 
@@ -107,7 +107,7 @@ var currentVisitorNames = () => {
 }
 
 var nonCurrentVisitorNames = () => {
-    return visitorsNames().filter((name) => visitor[name].arrived === undefined);
+    return visitorNames().filter((name) => visitors[name].arrived === undefined);
 };
 
 /*
@@ -129,3 +129,143 @@ var currentVisitorList = () => {
         return retVal;
     }); 
 };
+
+/*
+each user is in a seperate object.but it makes a lot more sense to turn the list of current
+visitors in a single object.
+*/
+
+var currentVisitors = () => {
+    return currentVisitorsList().reduce((a, b) => {
+        var bKey = Object.keys(b)[0]; 
+        a[bKey] = b[bKey];
+        return a;
+    });
+};
+
+// to create the combined object, we first need the key of the first object
+// Updating the visitor log
+/*
+a vivsitor either log in or log out
+if you log in, you have arrived, otherwise you log out and have left
+get f obtains information, whiles set sets up a bew visitor or updates
+*/
+
+var getVisitor = (name) => visitors[name];
+
+var setVisitor = (name, values) => visitors[name] = values;
+
+/*
+the logout function
+define it
+verify existance of user
+check if user has an arrive attribute
+we need to keep the history variable, but if this is the fist visit, it 
+will be empty.
+ */
+//if this is the first visit
+//  always define an empty variable
+/*
+the unshift function adds a new value at the begining of an array
+ */
+var logOut = (name) => {
+	var oldRecord = getVisitor(name);
+	
+	if (oldRecord === undefined) 
+		return `Error, ${name} is unknown`;
+	
+	if (oldRecord.arrived === undefined)
+		return `Error, ${name} is not logged in`;
+		
+	var history = oldRecord.history;
+	
+	// If this is the first visit
+	if (history === undefined) 
+		history = [];		
+	
+	history.unshift({
+		arrived: oldRecord.arrived,
+		left: new Date(Date.now())
+	});
+	
+	setVisitor(name, {history: history});
+	
+	return `OK, ${name} is logged out now`;
+};
+
+// The log in function has a similar concept except that here it creates a new 
+// record with the existing history and an arrived attribute with the current time.
+    
+var logIn = (name) => {
+	var oldRecord = getVisitor(name);
+	var history;
+	
+	// First time we see this person
+	if (oldRecord === undefined)    
+		history = [];   // No history
+		
+	// Already logged in	
+	else if (oldRecord.arrived !== undefined) 
+		return `Error, ${name} is already logged in`;
+		
+	// Not logged in, already exists
+	else history = oldRecord.history;
+		
+	setVisitor(name, {
+		arrived: new Date(Date.now()),
+		history: history
+	});	
+	
+	return `OK, ${name} is logged in now`;	
+};
+
+/*
+Testing
+The functions in this object do not receive any parameters,
+ and return the information that is sent to the user. 
+ To enable the testing of functions that do require parameters, 
+ such as logIn(), they are wrapped in the table within a 
+ definition that does provide the necessary parameters. 
+ That way, the code that uses the table does not need to specify any parameter values.
+*/
+
+var testFunctions = [
+	{path: "visitorNames", func: visitorNames},	
+	{path: "currentVisitorNames", func: currentVisitorNames},	
+	{path: "nonCurrentVisitorNames", func: nonCurrentVisitorNames},		
+	{path: "currentVisitorList", func: currentVisitorList},		
+	{path: "currentVisitors", func: currentVisitors},	
+	{path: "visitors", func: () => visitors},	
+	{path: "logIn", func: () => logIn("Avimelech ben-Gideon")},
+	{path: "logOut", func: () => logOut("Avimelech ben-Gideon")}	
+];
+
+
+// This is the code that registers the handlers.
+// It prepends /test/ to the path and creates a function
+// that calls the function from the table and then sends the response to the browser.
+testFunctions.map((item) => 
+	app.get(
+		`/test/${item.path}`, 
+		/* @callback */ function(req, res) {
+			res.send(item.func());
+		}
+	)
+);
+
+
+
+app.get("/hello", /* @callback */ function(req, res) {
+	res.send("Hello, world");
+});
+
+
+
+// get the app environment from Cloud Foundry
+var appEnv = cfenv.getAppEnv();
+
+// start server on the specified port and binding host
+app.listen(appEnv.port, '0.0.0.0', function() {
+  // print a message when the server starts listening
+  console.log("server starting on " + appEnv.url);
+});
