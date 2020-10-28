@@ -7,19 +7,37 @@
 
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<!-- kNOWLEDGE OF JQUERY LIBRARY IS A PREREQUISITE FOR WORKING WITH
+ANGULAR JS AND IT CAN BE EMBEDDED IN THE PAGE USING THE SCRIPT SOURCE TAG -->
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    
+<!-- the bootstrap team is what will define the look and feel 
+of the application, we include the css and js file in the application -->
+
+
 <!--  Angular  -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
-
+<!-- angular is the library that is used for reactive programming, it is 
+a programming method around data flows and the propagation of change.
+it is added by using the script source tag.
+ -->
     
 <script>
 var myApp = angular.module("myApp", ['ngSanitize']);
+/*
+one of the most important concepts in angular is the scope. this variable
+contains most of the controller functions, and the variables that are
+displayed to the user and it is considered to be the Model of an
+AngularJS application. now I know that an AngularJS app consists 
+of Model, View and Controller, where View will be our HTML file,
+Model is the data available for the View and Controller is the 
+Javascript functions that modify the data.
+*/
+
 var scope;
 
 
