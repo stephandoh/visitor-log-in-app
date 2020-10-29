@@ -46,9 +46,17 @@ myApp.controller("myCtrl", function($scope) {
 	// debugging
   	scope = $scope;
   	
-  	$scope.visitors = {a: "b"};
+    $scope.visitors = {a: "b"};
+    /*
+    l49 is going to be the same as visitirs on the server side, for now we just put
+    a dummy value of b in it 
+    */  
   	$scope.loginUser = "";
-  	
+  	/*
+    the loginUser variable is the model for a text field, into which the user will 
+    type the name of a visitor. because of this, the text field and the variable will 
+    always have the same value. if one changes, angularjs changes the other. 
+    */
   	$scope.refreshVisitors = () => {
   		$.ajax({
   			url: "/test/visitors",
