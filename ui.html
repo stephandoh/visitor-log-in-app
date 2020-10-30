@@ -68,13 +68,19 @@ myApp.controller("myCtrl", function($scope) {
   			}
   		});
   	};
-  	
+      /*
+      this function reads visitors from the server side and updates it in the client side
+      the variable $ is a data structure that contains the jquery functions
+      ajax can read data that does not occur at regular intervals and can therfore run 
+      anytime a user click on log on. we call ir here to read the visitors data structure.
+      because app.js does not contain a content type, we specify all the data type here.
+      */
 
   	$scope.refreshVisitors();
-  	
   	// Refresh visitors every minute (in case somebody else changes it)
-  	setInterval($scope.refreshVisitors, 60*1000);
-
+      
+    setInterval($scope.refreshVisitors, 60*1000);
+    
 
 	// Date.now() doesn't function correctly inside {{}}, so
 	// use this
