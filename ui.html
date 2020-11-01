@@ -48,7 +48,7 @@ myApp.controller("myCtrl", function($scope) {
   	
     $scope.visitors = {a: "b"};
     /*
-    l49 is going to be the same as visitirs on the server side, for now we just put
+    l49 is going to be the same as visitors on the server side, for now we just put
     a dummy value of b in it 
     */  
   	$scope.loginUser = "";
@@ -65,6 +65,17 @@ myApp.controller("myCtrl", function($scope) {
   			success: (obj) => {
   				$scope.visitors = obj;
   				$scope.$apply();
+			/*
+			success is a callback function- a function which is passed to another function
+			as an argument and then used there to complete a particular task. Because the 
+			data type is JSON, it receives a parsed JavaScript object as the parameter. it 
+			sets the scope variable to the new value, and then calls $scope.$apply. Whenever
+			a variable in a reactive programming framework such as AngularJS changes,
+			it is necessary to figure out what other items based on that variable need to change.
+			Normaly, AngularJS can do this for us, but in case of changes coming asynchronously
+			from a call back function it can't. Therefore we need to call $scope.$apply to
+			apply all the changes manually. 
+			*/
   			}
   		});
   	};
