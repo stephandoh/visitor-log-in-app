@@ -96,7 +96,11 @@ myApp.controller("myCtrl", function($scope) {
 	// Date.now() doesn't function correctly inside {{}}, so
 	// use this
 	$scope.now = () => Date.now().valueOf();
-
+	/*
+	This function makes a lot more sense when it is called, as it returns the current
+	time in milliseconds since the begining of the epoch. The reason that this function
+	is required later where it is used
+	*/
 
 	// Log a user out (ask the server to do it, then refresh the visitors data structure)
 	$scope.logout = name => {
