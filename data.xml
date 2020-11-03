@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Customer>
+
+<ID>0000002150</ID>
+<Lastname>SMITH</Lastname>
+
+<Firstname>AUBREY</Firstname>
+<Company>HILLSIDE DR</Company>
+
+<Address>PO BOX 2134</Address>
+<Zip>75034</Zip>
+
+<Zone>Old Town</Zone>
+</Customer>
