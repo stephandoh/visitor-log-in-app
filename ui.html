@@ -124,7 +124,12 @@ myApp.controller("myCtrl", function($scope) {
 
 	// Functions from app.js
 	
-	// Code to manipulate visitors data structure
+	/* 
+	Code to manipulate visitors data structure 
+	Codes were initially developed in app.js are also being used in the front-end
+	this is one advantage since you can use the same code in both the server and 
+	client side.
+	*/  
 	$scope.visitorNames = () => {
 		return Object.keys($scope.visitors);	
 	};	
@@ -167,7 +172,14 @@ myApp.controller("myCtrl", function($scope) {
 		// The Date need to be new, otherwise we are just modifying the same object and all dates in
 		// the history table are the same.
 	};
-
+	/*
+	the func above is a little different from the app.js version where it is enough to 
+	use Date(value) to get the string representation of the time and date.
+	because it reuses the date object, and the way AngularJS orhanizez the evaluation,
+	if we use the same function here, all the displayed dates would be the same.
+	to prevent this we create a new Date object everytime. We also organize the returned
+	dates into HTML rows and columns.
+	*/
 
 	// Given a history, create a table with it
 	$scope.histToTable = (history) => {
